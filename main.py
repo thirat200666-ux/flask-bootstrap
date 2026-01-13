@@ -90,3 +90,20 @@ def edit_car(id):
   return render_template('cars/edit_car.html',
                          title='Edit Car Page',
                          car=car)
+
+#เพิ่มเติมการค้นหา
+@app.route('/search', methods=['POST'])
+def search_cars_by_brand():
+  
+    query = request.form.get('search', '').strip()
+    
+ 
+    filtered_cars = [
+        car for car in cars 
+        if query.lower() in car['brand'].lower()
+    ]
+    
+
+    return render_template('cars/cars.html', 
+                           title='Show Cars by Brand Page', 
+                           cars=filtered_cars)
